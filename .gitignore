@@ -1,3 +1,4 @@
 node_modules
 public/index.js
+public/index.min.js
 yarn.lock

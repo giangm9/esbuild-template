@@ -3,19 +3,32 @@ const { readFileSync, existsSync, lstatSync } = require('fs');
 const { createServer } = require('http');
 
 
-build({
+
+const commmon = {
     entryPoints: ['src/index.ts'],
     minify: true,
     sourcemap: 'inline',
-    outdir: 'public',
+    outfile: 'public/index.js',
     watch: {
         onRebuild() { process.stdout.write('✔ '); }
     }
+}
+
+build(commmon)
+
+build({
+    ...commmon,
+    sourcemap: false,
+    outfile: "public/index.min.js",
+    watch: true
 })
+
+
 
 createServer((req, res) => {
     if (req.url == '/') {
-        res.end(readFileSync('public/index.html'));
+        const content = readFileSync('public/index.html');
+        res.end(content.toString().replace('index.min.js', 'index.js'));
         return;
     }
 
@@ -29,5 +42,5 @@ createServer((req, res) => {
 
     res.statusCode = 404;
     res.end();
-
 }).listen(8080);
+

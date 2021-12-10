@@ -1,2 +1,5 @@
-console.log('hello')
+class App   {
 
+}
+
+console.log('hello')
