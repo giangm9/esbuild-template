@@ -9,6 +9,7 @@ const commmon = {
     minify: true,
     sourcemap: 'inline',
     outfile: 'public/index.js',
+    bundle: true,
     watch: {
         onRebuild() { process.stdout.write('✔ '); }
     }
